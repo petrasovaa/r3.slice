@@ -1,0 +1,34 @@
+<h2>DESCRIPTION</h2>
+
+Creates vertical slice (profile) of a 3D raster and optionally creates profile line and axes.
+
+<h2>EXAMPLE</h2>
+<pre>
+g.region raster=elev_lid792_1m res=5 b=50 t=150 res3=5 tbres=5 -p3
+# Example with multiple elevation maps.
+
+r.mapcalc expression="one = 30001" 
+
+## Now we generate the new evelation map
+r.random.surface output=random distance=100 high=80 --o
+r.mapcalc expression="elev_bottom = elev_lid792_1m - random" --o
+
+## Now fill the lower cells below the elevation maps with the values one, two and three
+
+r.to.rast3elev -l input=soilsID,one elevation=elev_lid792_1m,elev_bottom output=soils3d
+r3.colors -n map=soils3d color=inferno
+
+r3.slice. input=soils3d output=slice coordinates=638445,220678,638829,220128  slice_line=slice_line axes=axes units=m,m
+</pre>
+
+<center>
+<img src="r3_slice.png" alt="slice"><br>
+Vertical slice of a 3D raster
+</center>
+
+<h2>AUTHORS</h2>
+
+
+<p>Anna Petrasova
+
+<p><i>Last changed: $Date: 2012-09-17 10:43:21 -0400 (Mon, 17 Sep 2012) $</i>
