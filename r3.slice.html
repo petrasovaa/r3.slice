@@ -14,11 +14,12 @@ r.random.surface output=random distance=100 high=80 --o
 r.mapcalc expression="elev_bottom = elev_lid792_1m - random" --o
 
 ## Now fill the lower cells below the elevation maps with the values one, two and three
-
 r.to.rast3elev -l input=soilsID,one elevation=elev_lid792_1m,elev_bottom output=soils3d
 r3.colors -n map=soils3d color=inferno
 
-r3.slice. input=soils3d output=slice coordinates=638445,220678,638829,220128  slice_line=slice_line axes=axes units=m,m
+r3.slice input=soils3d output=slice coordinates=638445,220678,638829,220128  slice_line=slice_line axes=axes units=m,m
+# display axes
+# d.vect map=axes layer=-1 width=1 icon=basic/cross1 attribute_column=label label_color=black label_size=10 yref=bottom
 </pre>
 
 <center>
